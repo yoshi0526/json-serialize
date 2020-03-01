@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import QtQml.Models 2.1
+import QtQuick.Controls 2.12
 import "func.js" as Func
 
 Window {
@@ -9,17 +11,17 @@ Window {
     title: qsTr("Hello World")
 
     Repeater {
-        model: 2
-        Item {
-            ObjectA{
-                y:index*20
-                x:index*20
-                onClicked: Func.funcA(index)
-            }
-            ObjectB{
-                x:index*20 + 100
-                y:index*20 + 100
-            }
-        }
+        model: itemModel
      }
+
+    ObjectModel {
+        id: itemModel
+        Rectangle { y:0 ; height: 30; width: 80; color: "red" }
+        Rectangle { y:50 ; height: 30; width: 80; color: "green" }
+        Rectangle { y:100 ; height: 30; width: 80; color: "blue" }
+        Button {x:200; y:0}
+        ObjectA {x:250; y:100; onClicked:Func.funcB()}
+    }
+
+
 }
